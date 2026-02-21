@@ -6,34 +6,7 @@
     <title>lit-ds-lab</title>
   </head>
   <body>
-    <h1>lit-ds-lab</h1>
-    <raw-counter step="2"></raw-counter>
-    <h2>ds-button</h2>
-    <ds-button>Primary</ds-button>
-    <ds-button variant="secondary">Secondary</ds-button>
-    <ds-button variant="danger">Danger</ds-button>
-    <ds-button disabled>Disabled</ds-button>
-    <h2>ds-card</h2>
-    <ds-card>
-      <span slot="header">Usuario</span>
-      John Doe — john@example.com
-    </ds-card>
-
-    <ds-card elevated>
-      <span slot="header">Card elevada</span>
-      Esta card tiene sombra.
-    </ds-card>
-    <h2>ds-alert</h2>
-    <ds-alert
-      type="success"
-      message="Operación completada correctamente"
-    ></ds-alert>
-    <ds-alert type="error" message="Ha ocurrido un error"></ds-alert>
-    <ds-alert type="warning" message="Ten cuidado con esto"></ds-alert>
-
-    <script type="module" src="./src/raw-counter.js"></script>
-    <script type="module" src="./src/components/ds-button.js"></script>
-    <script type="module" src="./src/components/ds-card.js"></script>
-    <script type="module" src="./src/components/ds-alert.js"></script>
+    <app-shell></app-shell>
+    <script type="module" src="./src/app-shell.js"></script>
   </body>
 </html>

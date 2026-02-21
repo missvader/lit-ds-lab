@@ -50,25 +50,35 @@ class DSCard extends LitElement {
   static styles = css`
     :host {
       display: inline-block;
-      width: 250px;
+      width: 280px;
     }
 
     .card {
-      border: 1px solid #e5e7eb;
-      border-radius: 8px;
-      padding: 16px;
-      background-color: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+      min-height: 160px;
     }
 
     .card.elevated {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
       border-color: transparent;
     }
 
     .card-header {
-      font-weight: bold;
-      margin-bottom: 8px;
-      border-bottom: 1px solid #e5e7eb;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    ::slotted(*) {
+      font-size: 0.875rem;
+      color: #64748b;
     }
   `;
 

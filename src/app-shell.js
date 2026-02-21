@@ -15,7 +15,7 @@
 //   Parent → Child: padre pasa datos al hijo vía property binding (.prop)
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { LitElement, html } from "lit";
+import { LitElement, html, css } from "lit";
 
 // Importar los componentes los registra automáticamente en el customElements registry.
 // El index.html solo necesita un <script> apuntando a este archivo.
@@ -37,7 +37,37 @@ class AppShell extends LitElement {
     super();
     this._selectedUser = null; // ningún usuario seleccionado al inicio
   }
+  static styles = css`
+    :host {
+      display: block;
+      padding: 32px 40px;
+    }
 
+    h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 32px;
+    }
+
+    h2 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    section {
+      margin-bottom: 40px;
+    }
+
+    p {
+      color: #94a3b8;
+      font-style: italic;
+    }
+  `;
   // ─── Template ─────────────────────────────────────────────────────────────
   // @click=${this._onUserSelected} → escucha el evento del hijo.
   // Aquí usamos @click nativo porque ds-button re-emite el click del botón
@@ -67,7 +97,7 @@ class AppShell extends LitElement {
         <h2>Usuario seleccionado</h2>
         ${this._selectedUser
           ? html`
-              <ds-card>
+              <ds-card elevated>
                 <span slot="header">${this._selectedUser.name}</span>
                 ${this._selectedUser.email}
               </ds-card>

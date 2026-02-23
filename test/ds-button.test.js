@@ -12,11 +12,10 @@
 //   fixture() monta el elemento en un <div> conectado al document real.
 // ─────────────────────────────────────────────────────────────────────────────
 
-import { fixture, html, expect } from "@open-wc/testing";
+import { fixture, html, expect, oneEvent } from "@open-wc/testing";
 import "../src/components/ds-button.js"; // registra <ds-button> en customElements
 
 describe("ds-button", () => {
-
   // ── Test 1: valor por defecto de @property ────────────────────────────────
   // Verifica que el contrato de la API pública se cumple:
   // si el consumidor no especifica variant, debe ser 'primary'.
@@ -81,4 +80,11 @@ describe("ds-button", () => {
     expect(el.textContent.trim()).to.equal("Click me");
   });
 
+  it("emits ds-click when the button is clicked ", async () => {
+    const el = await fixture(html`<ds-button>Click me</ds-button>`);
+    const listener = oneEvent(el, "ds-click"); // preparar el listener ANTES de hacer click
+    el.shadowRoot.querySelector("button").click(); // disparar la acción
+    const event = await listener; // esperar a que el evento ocurra
+    expect(event).to.exist;
+  });
 });

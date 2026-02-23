@@ -146,8 +146,8 @@ class AppShell extends LitElement {
 
   // ─── Handler: _onUserSelected ─────────────────────────────────────────────
   // Actualiza el estado interno con el usuario seleccionado.
-  // En el Bloque 5 este método recibirá e.detail.user desde ds-user-list.
-  // Por ahora usamos un usuario hardcodeado para probar la comunicación.
+  // Recibe e.detail.user desde ds-user-list.
+
   _onUserSelected(e) {
     this._selectedUser = e.detail.user;
   }

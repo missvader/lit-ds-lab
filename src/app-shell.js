@@ -23,6 +23,7 @@ import { LitElement, html, css } from "lit";
 import "./components/ds-button.js";
 import "./components/ds-card.js";
 import "./components/ds-alert.js";
+import "./components/ds-user-list.js";
 
 class AppShell extends LitElement {
   // ─── Estado interno ───────────────────────────────────────────────────────
@@ -40,32 +41,68 @@ class AppShell extends LitElement {
   static styles = css`
     :host {
       display: block;
-      padding: 32px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 28px 24px;
+    }
+
+    @media (min-width: 768px) {
+      :host {
+        padding: 36px 32px;
+      }
+    }
+    @media (min-width: 1280px) {
+      :host {
+        padding: 40px 40px;
+      }
     }
 
     h1 {
       font-size: 1.8rem;
-      font-weight: 700;
+      font-weight: 800;
       color: #0f172a;
-      margin-bottom: 32px;
+      letter-spacing: -0.02em;
+      margin-bottom: 18px;
     }
 
     h2 {
       font-size: 0.75rem;
-      font-weight: 600;
+      font-weight: 700;
       color: #94a3b8;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       margin-bottom: 12px;
     }
 
-    section {
-      margin-bottom: 40px;
+    /* Layout pro: 1 columna en mobile, 2 en desktop */
+    .layout {
+      display: grid;
+      gap: 28px;
     }
 
+    @media (min-width: 1024px) {
+      .layout {
+        grid-template-columns: 1fr 420px; /* panel derecho fijo */
+        align-items: start;
+        gap: 32px;
+      }
+    }
+
+    section {
+      margin: 0; /* evita spacing “por defecto” que a veces se te cruza */
+    }
+
+    /* Panel derecho: que se sienta como “detalle” */
+    .selected ds-card {
+      width: 100%;
+    }
+
+    /* El texto de vacío mejor alineado con UI */
     p {
       color: #94a3b8;
-      font-style: italic;
+      font-style: normal;
+      font-size: 0.9rem;
+      padding: 12px 0;
     }
   `;
   // ─── Template ─────────────────────────────────────────────────────────────
@@ -84,26 +121,26 @@ class AppShell extends LitElement {
   render() {
     return html`
       <h1>DS App</h1>
+      <div class="layout">
+        <section class="list">
+          <h2>Usuarios</h2>
+          <ds-user-list
+            @ds-user-selected=${this._onUserSelected}
+          ></ds-user-list>
+        </section>
 
-      <section>
-        <h2>Usuarios</h2>
-        <!-- ds-user-list vendrá en el Bloque 5 — por ahora simulamos con un botón -->
-        <ds-button @click=${this._onUserSelected}>
-          Seleccionar usuario de prueba
-        </ds-button>
-      </section>
-
-      <section>
-        <h2>Usuario seleccionado</h2>
-        ${this._selectedUser
-          ? html`
-              <ds-card elevated>
-                <span slot="header">${this._selectedUser.name}</span>
-                ${this._selectedUser.email}
-              </ds-card>
-            `
-          : html`<p>Ningún usuario seleccionado</p>`}
-      </section>
+        <section class="selected">
+          <h2>Usuario seleccionado</h2>
+          ${this._selectedUser
+            ? html`
+                <ds-card elevated>
+                  <span slot="header">${this._selectedUser.name}</span>
+                  ${this._selectedUser.email}
+                </ds-card>
+              `
+            : html`<p>Ningún usuario seleccionado</p>`}
+        </section>
+      </div>
     `;
   }
 
@@ -111,11 +148,8 @@ class AppShell extends LitElement {
   // Actualiza el estado interno con el usuario seleccionado.
   // En el Bloque 5 este método recibirá e.detail.user desde ds-user-list.
   // Por ahora usamos un usuario hardcodeado para probar la comunicación.
-  _onUserSelected() {
-    this._selectedUser = {
-      name: "John Doe",
-      email: "john@example.com",
-    };
+  _onUserSelected(e) {
+    this._selectedUser = e.detail.user;
   }
 }
 

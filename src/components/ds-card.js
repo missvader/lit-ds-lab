@@ -39,37 +39,39 @@ class DSCard extends LitElement {
   }
 
   // ─── Estilos encapsulados ─────────────────────────────────────────────────
-  // display: inline-block en :host → permite poner varias cards lado a lado.
-  // display: block haría que cada card ocupara el ancho completo de la línea.
+  // display: block en :host → la card ocupa el ancho que le asigne su contenedor.
+  // Cuando está dentro de un grid, el grid controla el ancho de cada celda.
+  // El ancho fijo (width: 280px) se elimina para que el grid funcione correctamente.
   //
   // .card.elevated → clase combinada: solo aplica cuando el div tiene AMBAS
   //                  clases "card" y "elevated" al mismo tiempo.
   //
-  // ::slotted(*) no se usa aquí porque no necesitamos estilar el contenido
-  // proyectado — el consumidor lo estila desde fuera.
+  // ::slotted(*) → estila el contenido proyectado desde fuera (light DOM).
   static styles = css`
     :host {
-      display: inline-block;
-      width: 280px;
+      display: block;
     }
 
     .card {
       border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 20px;
-      background: white;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
-      min-height: 160px;
+      border-radius: 14px;
+      padding: 18px 18px;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06);
+      /* PRO: no fuerces altura fija en todos los contextos */
+      min-height: 0;
     }
 
     .card.elevated {
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
       border-color: transparent;
+      box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.12),
+        0 2px 6px rgba(15, 23, 42, 0.06);
     }
 
     .card-header {
       font-size: 0.95rem;
-      font-weight: 600;
+      font-weight: 700;
       color: #0f172a;
       margin-bottom: 10px;
       padding-bottom: 10px;
@@ -77,8 +79,9 @@ class DSCard extends LitElement {
     }
 
     ::slotted(*) {
-      font-size: 0.875rem;
-      color: #64748b;
+      font-size: 0.92rem;
+      color: #475569;
+      line-height: 1.35;
     }
   `;
 
